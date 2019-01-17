@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">ExamplePAM</string>
+    <string name="allow">Allow</string>
+    <string name="contact_permission_text">This app requires a permission to display your contact list.</string>
+    <string name="history">History</string>
+    <string name="contact_list">Contact list</string>
+</resources>
