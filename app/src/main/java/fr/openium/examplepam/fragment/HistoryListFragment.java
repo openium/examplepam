@@ -69,32 +69,4 @@ public class HistoryListFragment extends Fragment {
             }
         });
     }
-
-//    private void displayContacts() {
-//        linearLayout.setVisibility(View.GONE);
-//        recyclerViewContact.setLayoutManager(new LinearLayoutManager(getContext()));
-//        List<CallContact> contacts = getContactName();
-//        recyclerViewContact.setAdapter(new ContactAdapter(contacts, (contact -> {
-//
-//        })));
-//    }
-//
-//    private List<String> getContactName() {
-//        ContentResolver cr = getContext().getContentResolver();
-//        Cursor cur = cr.query(ContactsContract.Contacts.CONTENT_URI, null, null, null, null);
-//        List<String> contacts = new ArrayList<>();
-//
-//        if ((cur != null ? cur.getCount() : 0) > 0) {
-//            while (cur.moveToNext()) {
-//                String name = cur.getString(cur.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME));
-//                contacts.add(name);
-//            }
-//        }
-//        if (cur != null) {
-//            cur.close();
-//        }
-//
-//        return contacts;
-//    }
-
 }

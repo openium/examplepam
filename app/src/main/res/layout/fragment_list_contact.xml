@@ -17,8 +17,7 @@
         android:layout_gravity="center"
         android:gravity="center"
         android:text="@string/no_contact"
-        android:visibility="gone"
-        tools:visibility="visible" />
+        android:visibility="gone" />
 
     <LinearLayout
         android:id="@+id/requirePermissionBlock"

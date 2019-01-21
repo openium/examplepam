@@ -104,7 +104,7 @@ public class ContactListFragment extends Fragment implements ContactAdapter.OnCo
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 displayContacts();
             } else {
-                Toast.makeText(getContext(), "We need the contact permission to display the list", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), R.string.contact_permission_required, Toast.LENGTH_SHORT).show();
             }
         }
     }
