@@ -7,12 +7,17 @@ import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.IBinder;
+
+import java.util.concurrent.TimeUnit;
 
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 import fr.openium.examplepam.R;
+import fr.openium.examplepam.database.AppDatabase;
+import fr.openium.examplepam.model.Call;
 
 public class CallService extends Service {
     public static final int start = 0xa;
@@ -22,6 +27,9 @@ public class CallService extends Service {
     public static final String KEY_NAME = "KEY_NAME";
     public static final String CHANNEL_ID = "callnotification";
     public static final int NOTIFICATION_ID = 0x78;
+
+    private Call call = null;
+    private long callStartTime = 0;
 
 
     // Used to dialog with the rest of the app, like an Activity, won't be used here
@@ -54,11 +62,19 @@ public class CallService extends Service {
                         .addAction(action)
                         .build();
 
+                callStartTime = System.currentTimeMillis();
+                call = new Call(name, callStartTime);
                 startForeground(NOTIFICATION_ID, notification);
                 return START_STICKY;
             }
             case stop: {
+                call.length = (int) TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis() - callStartTime);
+                AppDatabase database = AppDatabase.getInstance(getApplicationContext());
+                // required to insert on another thread
+                AsyncTask.execute(() -> database.callDao().insertAll(call));
+
                 stopSelf();
+                break;
             }
         }
 

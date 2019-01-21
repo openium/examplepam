@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import fr.openium.examplepam.R;
 import fr.openium.examplepam.fragment.ContactListFragment;
+import fr.openium.examplepam.fragment.HistoryListFragment;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
     BottomNavigationView bottomNavigationView;
@@ -23,7 +24,9 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
 
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
-        bottomNavigationView.setSelectedItemId(R.id.menu_contact_list);
+        if (savedInstanceState == null) {
+            bottomNavigationView.setSelectedItemId(R.id.menu_contact_list);
+        }
     }
 
     @Override
@@ -31,10 +34,12 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         Fragment fragment = null;
         switch (menuItem.getItemId()) {
             case R.id.menu_history: {
-
+                fragment = new HistoryListFragment();
+                break;
             }
             case R.id.menu_contact_list: {
                 fragment = new ContactListFragment();
+                break;
             }
         }
 
