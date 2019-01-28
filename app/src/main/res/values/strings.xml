@@ -11,4 +11,6 @@
     <string name="dismiss">Dismiss</string>
     <string name="no_call_yet">No call yet</string>
     <string name="contact_permission_required">We need the contact permission to display the list</string>
+    <string name="news">News</string>
+    <string name="changelog">Changelog</string>
 </resources>

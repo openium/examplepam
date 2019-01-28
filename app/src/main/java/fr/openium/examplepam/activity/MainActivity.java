@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment;
 import fr.openium.examplepam.R;
 import fr.openium.examplepam.fragment.ContactListFragment;
 import fr.openium.examplepam.fragment.HistoryListFragment;
+import fr.openium.examplepam.fragment.NewsFragment;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
     BottomNavigationView bottomNavigationView;
@@ -39,6 +40,10 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             }
             case R.id.menu_contact_list: {
                 fragment = new ContactListFragment();
+                break;
+            }
+            case R.id.menu_news: {
+                fragment = new NewsFragment();
                 break;
             }
         }
