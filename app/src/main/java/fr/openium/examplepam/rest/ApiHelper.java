@@ -6,6 +6,11 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class ApiHelper {
     private NewsApi newsApi;
 
+    /**
+     * Url called : https://api.myjson.com/bins/11pw2g
+     *
+     * @return
+     */
     public NewsApi getNewsApi() {
         return newsApi;
     }
