@@ -1,82 +1,70 @@
-package fr.openium.examplepam.adapter;
+package fr.openium.examplepam.adapter
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
+import fr.openium.examplepam.R
+import fr.openium.examplepam.adapter.HistoryAdapter.CallViewHolder
+import fr.openium.examplepam.model.Call
+import org.ocpsoft.prettytime.PrettyTime
+import java.util.*
+import java.util.concurrent.TimeUnit
 
-import org.ocpsoft.prettytime.PrettyTime;
-
-import java.util.List;
-import java.util.Locale;
-import java.util.concurrent.TimeUnit;
-
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
-import fr.openium.examplepam.R;
-import fr.openium.examplepam.model.Call;
-
-public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.CallViewHolder> {
-    private List<Call> calls;
-    private PrettyTime prettyTime;
-
-    public HistoryAdapter(List<Call> calls) {
-        this.calls = calls;
-        prettyTime = new PrettyTime(Locale.ENGLISH);
+class HistoryAdapter(private var calls: List<Call>) : RecyclerView.Adapter<CallViewHolder>() {
+    private val prettyTime: PrettyTime
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CallViewHolder {
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_call, parent, false)
+        return CallViewHolder(view)
     }
 
-    @NonNull
-    @Override
-    public CallViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_call, parent, false);
-        return new CallViewHolder(view);
+    override fun onBindViewHolder(holder: CallViewHolder, position: Int) {
+        val (_, contactName, length, startDate) = calls[position]
+        holder.textViewItemContact.text = contactName
+        holder.textViewLength.text = getElapseTime(length)
+        holder.textViewItemCallStart.text = prettyTime.format(startDate)
     }
 
-    @Override
-    public void onBindViewHolder(@NonNull CallViewHolder holder, int position) {
-        Call call = calls.get(position);
-        holder.textViewItemContact.setText(call.contactName);
-        holder.textViewLength.setText(getElapseTime(call.length));
-        holder.textViewItemCallStart.setText(prettyTime.format(call.startDate));
-    }
-
-    private String getElapseTime(long duration) {
-        long hr = TimeUnit.SECONDS.toHours(duration);
-        String result;
-        if (hr != 0L) {
-            long min = TimeUnit.SECONDS.toMinutes(duration - TimeUnit.HOURS.toSeconds(hr));
-            result = String.format("%01dh %02dm", hr, min);
+    private fun getElapseTime(duration: Long): String {
+        val hr = TimeUnit.SECONDS.toHours(duration)
+        val result: String
+        result = if (hr != 0L) {
+            val min = TimeUnit.SECONDS.toMinutes(duration - TimeUnit.HOURS.toSeconds(hr))
+            String.format("%01dh %02dm", hr, min)
         } else {
-            long min = TimeUnit.SECONDS.toMinutes(duration);
+            val min = TimeUnit.SECONDS.toMinutes(duration)
             if (min != 0L) {
-                result = String.format("%2d min", min);
+                String.format("%2d min", min)
             } else {
-                result = String.format("%2d sec", duration);
+                String.format("%2d sec", duration)
             }
         }
-        return result;
+        return result
     }
 
-    @Override
-    public int getItemCount() {
-        return calls.size();
+    override fun getItemCount(): Int {
+        return calls.size
     }
 
-    public void updateCalls(List<Call> calls) {
-        this.calls = calls;
-        notifyDataSetChanged();
+    fun updateCalls(calls: List<Call>) {
+        this.calls = calls
+        notifyDataSetChanged()
     }
 
-    static class CallViewHolder extends RecyclerView.ViewHolder {
-        TextView textViewItemContact;
-        TextView textViewLength;
-        TextView textViewItemCallStart;
+    class CallViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        var textViewItemContact: TextView
+        var textViewLength: TextView
+        var textViewItemCallStart: TextView
 
-        CallViewHolder(View view) {
-            super(view);
-            textViewItemContact = view.findViewById(R.id.textViewItemCall);
-            textViewLength = view.findViewById(R.id.textViewItemCallLength);
-            textViewItemCallStart = view.findViewById(R.id.textViewItemCallStart);
+        init {
+            textViewItemContact = view.findViewById(R.id.textViewItemCall)
+            textViewLength = view.findViewById(R.id.textViewItemCallLength)
+            textViewItemCallStart = view.findViewById(R.id.textViewItemCallStart)
         }
+    }
+
+    init {
+        prettyTime = PrettyTime(Locale.ENGLISH)
     }
 }

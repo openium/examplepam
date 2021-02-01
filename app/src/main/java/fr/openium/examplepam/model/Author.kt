@@ -1,6 +1,9 @@
-package fr.openium.examplepam.model;
+package fr.openium.examplepam.model
 
-public class Author {
-    public String name;
-    public String mail;
-}
+import kotlinx.serialization.Serializable
+
+@Serializable
+data class Author(
+    val name: String? = null,
+    val email: String? = null
+)

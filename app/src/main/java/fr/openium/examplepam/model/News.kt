@@ -1,12 +1,12 @@
-package fr.openium.examplepam.model;
+package fr.openium.examplepam.model
 
-import java.util.List;
+import kotlinx.serialization.Serializable
 
-public class News {
-    public String version;
-    public String releaseDate;
-    public String content;
-    public List<String> changelog;
-    public List<Author> authors;
-}
-
+@Serializable
+data class News(
+    val version: String? = null,
+    val releaseDate: String? = null,
+    val content: String? = null,
+    val changelog: List<String>? = null,
+    val authors: List<Author>? = null
+)

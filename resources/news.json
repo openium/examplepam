@@ -1,0 +1,20 @@
+{
+  "version": "2.0",
+  "releaseDate": "02/02/2021",
+  "content": "The course has been updated to work in Kotlin, as the example project !",
+  "changelog": [
+    "Migrated all classes to Kotlin",
+    "Changed json hosting api",
+    "Switched to Ktor"
+  ],
+  "authors": [
+    {
+      "name": "Thomas Coulange",
+      "email": "t.coulange@openium.fr"
+    },
+    {
+      "name": "Olivier Goutet",
+      "email": "o.goutet@openium.fr"
+    }
+  ]
+}

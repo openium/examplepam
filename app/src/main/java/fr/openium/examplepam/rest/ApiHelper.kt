@@ -1,32 +1,22 @@
-package fr.openium.examplepam.rest;
+package fr.openium.examplepam.rest
 
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
+import fr.openium.examplepam.model.News
+import io.ktor.client.*
+import io.ktor.client.engine.android.*
+import io.ktor.client.features.json.*
+import io.ktor.client.features.json.serializer.*
+import io.ktor.client.request.*
 
-public class ApiHelper {
-    private NewsApi newsApi;
+object ApiHelper {
+    private val client = HttpClient(Android) {
+        engine {
 
-    /**
-     * Url called : https://api.myjson.com/bins/11pw2g
-     *
-     * @return
-     */
-    public NewsApi getNewsApi() {
-        return newsApi;
-    }
-
-    private ApiHelper() {
-        Retrofit retrofit = new Retrofit.Builder().baseUrl("https://api.myjson.com/").addConverterFactory(GsonConverterFactory.create()).build();
-        newsApi = retrofit.create(NewsApi.class);
-    }
-
-    private static volatile ApiHelper instance;
-
-
-    public static synchronized ApiHelper getInstance() {
-        if (instance == null) {
-            instance = new ApiHelper();
         }
-        return instance;
+        install(JsonFeature) {
+            serializer = KotlinxSerializer()
+        }
     }
+
+    suspend fun getNews(): News =
+        client.get<News>("https://jsonkeeper.com/b/BVVR")
 }

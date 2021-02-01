@@ -1,31 +1,18 @@
-package fr.openium.examplepam.model;
+package fr.openium.examplepam.model
 
-import java.util.Date;
-
-import androidx.room.ColumnInfo;
-import androidx.room.Entity;
-import androidx.room.PrimaryKey;
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import java.util.*
 
 @Entity
-public class Call {
+data class Call(
     @PrimaryKey(autoGenerate = true)
-    public int uid;
-
+    var uid: Long? = null,
     @ColumnInfo
-    public String contactName;
-
+    var contactName: String? = null,
     @ColumnInfo
-    public int length;
-
+    var length: Long = 0,
     @ColumnInfo
-    public Date startDate;
-
-    public Call() {
-
-    }
-
-    public Call(String contactName, long startDate) {
-        this.contactName = contactName;
-        this.startDate = new Date(startDate);
-    }
-}
+    var startDate: Date = Date()
+)

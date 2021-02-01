@@ -1,17 +1,16 @@
-package fr.openium.examplepam.database;
+package fr.openium.examplepam.database
 
-import java.util.Date;
+import androidx.room.TypeConverter
+import java.util.*
 
-import androidx.room.TypeConverter;
-
-public class Converters {
+class Converters {
     @TypeConverter
-    public static Date fromTimestamp(Long value) {
-        return value == null ? null : new Date(value);
+    fun fromTimestamp(value: Long?): Date? {
+        return if (value == null) null else Date(value)
     }
 
     @TypeConverter
-    public static Long dateToTimestamp(Date date) {
-        return date == null ? null : date.getTime();
+    fun dateToTimestamp(date: Date?): Long? {
+        return date?.time
     }
 }
