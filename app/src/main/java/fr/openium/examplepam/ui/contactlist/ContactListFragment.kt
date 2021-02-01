@@ -29,6 +29,7 @@ class ContactListFragment : Fragment(), OnContactClickedListener {
     private var recyclerViewContact: RecyclerView? = null
     private var linearLayout: LinearLayout? = null
     private var emptyTextView: TextView? = null
+    
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -44,7 +45,7 @@ class ContactListFragment : Fragment(), OnContactClickedListener {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        buttonRequirePermission!!.setOnClickListener { button: View? ->
+        buttonRequirePermission?.setOnClickListener { button: View? ->
             requestPermissions(
                 arrayOf(
                     Manifest.permission.READ_CONTACTS
@@ -57,16 +58,16 @@ class ContactListFragment : Fragment(), OnContactClickedListener {
     }
 
     private fun displayContacts() {
-        linearLayout!!.visibility = View.GONE
-        recyclerViewContact!!.layoutManager = LinearLayoutManager(context)
+        linearLayout?.visibility = View.GONE
+        recyclerViewContact?.layoutManager = LinearLayoutManager(context)
         val contacts = contacts
         if (!contacts.isEmpty()) {
-            recyclerViewContact!!.visibility = View.VISIBLE
-            emptyTextView!!.visibility = View.GONE
-            recyclerViewContact!!.adapter = ContactAdapter(contacts, this)
+            recyclerViewContact?.visibility = View.VISIBLE
+            emptyTextView?.visibility = View.GONE
+            recyclerViewContact?.adapter = ContactAdapter(contacts, this)
         } else {
-            recyclerViewContact!!.visibility = View.GONE
-            emptyTextView!!.visibility = View.VISIBLE
+            recyclerViewContact?.visibility = View.GONE
+            emptyTextView?.visibility = View.VISIBLE
         }
     }// We get only the id and the name
 

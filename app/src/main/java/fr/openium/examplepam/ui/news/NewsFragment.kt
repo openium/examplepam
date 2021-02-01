@@ -14,6 +14,7 @@ import fr.openium.examplepam.R
 import fr.openium.examplepam.model.News
 import fr.openium.examplepam.rest.ApiHelper
 import kotlinx.coroutines.launch
+import java.lang.StringBuilder
 
 class NewsFragment : Fragment() {
     private var progressBar: ProgressBar? = null
@@ -33,8 +34,9 @@ class NewsFragment : Fragment() {
         return view
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
         viewLifecycleOwner.lifecycleScope.launch {
             try {
                 val news = ApiHelper.getNews()
@@ -43,7 +45,6 @@ class NewsFragment : Fragment() {
                 Log.e("NewsFragment", "network error", e)
                 //TODO handle failure
             }
-
         }
     }
 

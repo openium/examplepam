@@ -4,12 +4,15 @@ import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import fr.openium.examplepam.R
 import fr.openium.examplepam.database.AppDatabase
+import fr.openium.examplepam.rest.ApiHelper
 import fr.openium.examplepam.ui.contactlist.ContactListFragment
 import fr.openium.examplepam.ui.history.HistoryListFragment
 import fr.openium.examplepam.ui.news.NewsFragment
+import kotlinx.coroutines.*
 
 class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
     lateinit var bottomNavigationView: BottomNavigationView

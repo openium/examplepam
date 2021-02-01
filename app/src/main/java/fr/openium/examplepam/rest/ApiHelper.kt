@@ -17,6 +17,5 @@ object ApiHelper {
         }
     }
 
-    suspend fun getNews(): News =
-        client.get<News>("https://jsonkeeper.com/b/BVVR")
+    suspend fun getNews(): News = client.get<News>("https://jsonkeeper.com/b/BVVR")
 }

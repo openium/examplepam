@@ -26,7 +26,7 @@ class HistoryListFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        recyclerViewCall!!.layoutManager = LinearLayoutManager(context)
+        recyclerViewCall?.layoutManager = LinearLayoutManager(context)
         viewModel.calls.observe(viewLifecycleOwner) {
             displayCalls(it)
         }
@@ -34,16 +34,21 @@ class HistoryListFragment : Fragment() {
 
     private fun displayCalls(calls: List<Call>) {
         if (!calls.isEmpty()) {
-            recyclerViewCall!!.visibility = View.VISIBLE
-            emptyTextView!!.visibility = View.GONE
-            if (recyclerViewCall!!.adapter != null) {
-                (recyclerViewCall!!.adapter as HistoryAdapter?)!!.updateCalls(calls)
-            } else {
-                recyclerViewCall!!.adapter = HistoryAdapter(calls)
+            emptyTextView?.visibility = View.GONE
+
+            recyclerViewCall?.apply {
+                //Here this is the recyclerViewCall
+                visibility = View.VISIBLE
+                if (adapter != null) {
+                    (adapter as HistoryAdapter?)?.updateCalls(calls)
+                } else {
+                    adapter = HistoryAdapter(calls)
+                }
             }
+
         } else {
-            recyclerViewCall!!.visibility = View.GONE
-            emptyTextView!!.visibility = View.VISIBLE
+            emptyTextView?.visibility = View.VISIBLE
+            recyclerViewCall?.visibility = View.GONE
         }
     }
 }
